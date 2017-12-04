@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cloud Computing for Data Analysis</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.min.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Yelp Data Analysis</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+              <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="#dataset">Dataset</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="#algorithms">Algorithms</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="#results">Results</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">Course: ITCS-6190</div>
+          <div class="intro-heading text-uppercase">PREDICTING YELP FOOD REVIEWS’ RATINGS</div>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#about">Tell Me More</a>
+        </div>
+      </div>
+    </header>
+
+      <!-- About -->
+      <section id="about">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-center">
+                      <h2 class="section-heading text-uppercase">About</h2>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">
+                      <ul class="timeline">
+                          <li>
+                              <div class="timeline-image">
+                                  <img class="rounded-circle img-fluid" src="img/about/review.jpg" alt="">
+                              </div>
+                              <div class="timeline-panel">
+                                  <div class="timeline-heading">
+                                      <h4 class="subheading">Introduction</h4>
+                                  </div>
+                                  <div class="timeline-body">
+                                      <p class="text-muted">Review websites, such as TripAdvisor and Yelp, allow users to post online reviews for
+various businesses, products and services, and have been recently shown to have a
+considerable influence on consumer shopping behavior. An online review typically consists of
+free-form text and a star rating out of 5. It provides a valuable feedback to the merchant about
+which products are popular while which are not. It also provides hints to the business so that
+they can reevaluate their customer policy and make improvement towards certain direction.
+Specifically, user’s rating usually reflects their opinion towards the products themselves, or the
+customer service they received. Either way, it gives worthwhile information that the market
+could rely on. Besides, users’ review text can be utilized as useful feature because of the
+emotion they convey. The problem of predicting a user’s star rating for a product, given the
+user’s text review for that product, is called Review Rating Prediction and has lately become a
+popular, albeit hard, problem in machine learning</p>
+                                  </div>
+                              </div>
+                          </li>
+                          <li class="timeline-inverted">
+                              <div class="timeline-image" >
+                                  <img class="rounded-circle img-fluid" src="img/about/project.jpg" alt="">
+                              </div>
+                              <div class="timeline-panel">
+                                  <div class="timeline-heading">
+                                      <h4 class="subheading">Project</h4>
+                                  </div>
+                                  <div class="timeline-body">
+                                      <p class="text-muted">In this project, we treat the Review Rating Prediction for restaurant reviews on Yelp as a
+5-class classification problem, and build a model which predicts the rating (Classify it into 1-5
+star rating classes) given a text review. We examine the performance of models built using
+three supervised machine learning classification algorithms namely logistic regression, Naive
+Bayes classification and K Nearest Neighbors. We analyze the performance of each of these
+
+models to come up with the best model for predicting the ratings from reviews. We use the
+dataset provided by Yelp for training and testing the models</p>
+                                  </div>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="timeline-image">
+                                  <img class="rounded-circle img-fluid" src="img/about/output.jpg" alt="">
+                              </div>
+                              <div class="timeline-panel">
+                                  <div class="timeline-heading">
+                                      <h4 class="subheading">Expected Outcome</h4>
+                                  </div>
+                                  <div class="timeline-body">
+                                      <p class="text-muted"><strong>Definitely:</strong> Outcome would be a system that predicts rating for a given review text.
+Implementation flow starts with separating restaurant reviews from Yelp dataset which has
+reviews for various categories, such as restaurants, shopping, hotels and travel, etc. we then
+preprocess the text reviews to extract meaningful content from each of them. To do this, we
+use standard Python libraries to remove capitalizations, stop words and punctuations. Next, we
+use Unigrams model to extract useful features from the review corpus build a feature vector for
+each review. Then we implement three supervised machine learning algorithms (logistic
+regression, Naive Bayes classification and K Nearest Neighbors) to train our prediction model.<br />
+<strong>Likely:</strong> Using Bigrams model for feature extraction.<br />
+<strong>Ideally:</strong> Implementation of the system in PySpark.</p>
+                                  </div>
+                              </div>
+                          </li>
+                          <li class="timeline-inverted">
+                              <div class="timeline-image">
+                                  <h4>
+                                      Be Part
+                                      <br>Of Our
+                                      <br>Story!
+                                  </h4>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+    <!-- Dataset -->
+      <section class="bg-light" id="dataset">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-8 mx-auto text-center">
+                      <h2 class="section-heading">Dataset</h2>
+                      <hr>
+                      <p class="text-bold mb-4text-justify">
+                          We are using Yelp Open Dataset provided by Yelp. The Yelp dataset is a subset of
+                          businesses, reviews, and user data. It consists of mainly 6 files (business, reviews, users,
+                          checkins, tips and photos). The algorithms implemented in the project use stars and review
+                          text attributes from the reviews file. The size of the reviews data set is 3.4 GB which consists of
+                          reviews of several categories of which we will be considering the most reviewed category
+                          restaurants.
+                      </p>
+                      <a class="btn btn-primary btn-xl" href="https://www.yelp.com/dataset">Yelp Dataset ></a>
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+              <br />
+              <div class="row">
+                  <div class="col-lg-3 col-md-6 text-center">
+                      <div class="service-box mt-5 mx-auto">
+                          <i class="text-primary mb-3 sr-icons"><img src="img/yelp/reviews.png"  style="width:50%"  /></i>
+
+                          <h6 class="mb-3">4,700,000 reviews</h6>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 text-center">
+                      <div class="service-box mt-5 mx-auto">
+                          <i class="text-primary mb-3 sr-icons"><img src="img/yelp/businesses.png"  style="width:50%" /></i>
+                          <h6 class="mb-3">156,000 businesses</h6>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 text-center">
+                      <div class="service-box mt-5 mx-auto">
+                          <i class="text-primary mb-3 sr-icons"><img src="img/yelp/photos.png"  style="width:50%" /></i>
+                          <h6 class="mb-3">200,000 pictures</h6>
+                      </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 text-center">
+                      <div class="service-box mt-5 mx-auto">
+                          <i class="text-primary mb-3 sr-icons"><img src="img/yelp/cities.png"  style="width:50%" /></i>
+                          <h6 class="mb-3">12 metropolitan areas</h6>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Algorithms -->
+      <section id="algorithms">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12 text-center">
+                      <h2 class="section-heading">Algorithms</h2>
+                      <hr class="primary">
+                  </div>
+              </div>
+          </div>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <h3>Naive Bayes Algorithm</h3>
+                      <p class="text-muted">
+                          Naive Bayes methods are a set of supervised learning algorithms based on applying 'Bayes' theorem with the 'naive' assumption of independence between every pair of features.
+                          In other words, Naive Bayes is a conditional probability model.
+                          It is an intuitive method that uses probabilities of each attribute belonging to each class to make a prediction. <br>
+                          The multinomial Naive Bayes with smoothing has been implemented. To classify, we calculated probabilities of the review belonging to each rating and then selected the class value with highest probability.
+                          We have performed computations by summing logs of probabilities rather than multiplying probabilities for underflow prevention. <br>
+
+                      </p>
+                  </div>
+                  <div class="col-lg-12">
+                      <h3>K-Nearest Neighbors Algorithm</h3>
+                      <p class="text-muted">
+                          K-Nearest Neighbors algorithm is an instance-based algorithm and belongs to the family of competitive learning and lazy learning algorithms. For the prediction of rating, the algorithm searches through the training dataset for the k most similar instances.<br>
+                          Hamming distance and Levenshtien distance has been used to classify reviews.
+                      </p>
+                  </div>
+                  <div class="col-lg-12">
+                      <h3>Logistic regression</h3>
+                      <p class="text-muted">
+                          Logistic regression is a statistical method for analyzing a dataset in which there are one or more independent variables that determine an outcome. The outcome is measured with a dichotomous variable (in which there are only two possible outcomes).
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+     
+
+    <!-- Results Grid -->
+    <section class="bg-light" id="results">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Results</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal" href="#naiveBayesResultsModel">
+             
+              <img class="img-fluid" src="img/algorithms/bayes_rule.jpg" alt="">
+            </a>
+            <div class="portfolio-caption">
+              <h4>Naive Bayes</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal" href="#kNearestResultModel">
+              
+              <img class="img-fluid" src="img/algorithms/knearest.jpg" alt="">
+            </a>
+            <div class="portfolio-caption">
+              <h4>K-Nearest</h4>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal" href="#logisticRegressionResultModel">
+              
+              <img class="img-fluid" src="img/algorithms/logistic_regression.jpg" alt="">
+            </a>
+            <div class="portfolio-caption">
+              <h4>Logistic Regression</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="bg-light" id="team">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="img/team/sunand.jpg" alt="">
+                <!-- Trigger the modal with a button --> 
+              <h5 data-toggle="modal" data-target="#sunandTasks">Sunand Pujari</h5>
+                
+              <ul class="list-inline social-buttons">
+               
+                <li class="list-inline-item">
+                  <a href="https://www.facebook.com/sunand.kumar.9">
+                    <i class="fa fa-facebook"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/sunandkumarpujari/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              <li class="list-inline-item">
+                  <a href="mailto:spujari@uncc.edu">
+                      <i class="fa fa-envelope"></i>
+                  </a>
+              </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="img/team/vamsy.jpg" alt="">
+                <h5 data-toggle="modal" data-target="#vamsyTasks">Vamshedhar Chintala</h5>
+
+              <ul class="list-inline social-buttons">
+                
+                <li class="list-inline-item">
+                  <a href="https://www.facebook.com/vamshedhar">
+                    <i class="fa fa-facebook"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/vamshedhar/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+                  <li class="list-inline-item">
+                      <a href="mailto:vchinta@uncc.edu">
+                          <i class="fa fa-envelope"></i>
+                      </a>
+                  </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member">
+              <img class="mx-auto rounded-circle" src="img/team/vinutna.jpg" alt="">
+                <h5 data-toggle="modal" data-target="#vinutnaTasks">Vinutna Gannu</h5>
+
+              <ul class="list-inline social-buttons">
+                
+                <li class="list-inline-item">
+                  <a href="https://www.facebook.com/gannu.vinutna">
+                    <i class="fa fa-facebook"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="https://www.linkedin.com/in/vinutna-gannu-a4575573/">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+              <li class="list-inline-item">
+                  <a href="mailto:vgannu@uncc.edu">
+                      <i class="fa fa-envelope"></i>
+                  </a>
+              </li>
+              </ul>
+            </div>
+          </div>
+            <div class="col-sm-3">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="img/team/usha.jpg" alt="">
+
+                    <h5 data-toggle="modal" data-target="#ushaTasks">Ushaswini Vinnakota</h5>
+                   
+                    <ul class="list-inline social-buttons">
+                        
+                        <li class="list-inline-item">
+                            <a href="https://www.facebook.com/vinnakota.ushaswini">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/ushaswinivinnakota/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="mailto:vvinnak1@uncc.edu">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; ITCS-6190 Cloud Computing for Data Analysis</span>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline quicklinks">
+              <li class="list-inline-item">
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Portfolio Modals -->
+
+    <!-- Modal 1 -->
+    <div class="portfolio-modal modal fade" id="naiveBayesResultsModel" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <h2 class="text-uppercase">Naive Bayes Algorithm: Output</h2>
+
+                    <img src="img/NBUserInput.jpeg">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-6 text-center">Value of alpha</th>
+                                <th class="col-xs-6 text-center">Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2</td>
+                                <td>52.38%</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>52.78%</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>53.27%</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>53.46%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    Accuracy with scikit-learn library - 64.32% <br><br>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2 -->
+    <div class="portfolio-modal modal fade" id="kNearestResultModel" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <h2 class="text-uppercase">K-Nearest Neighbors Algorithm: Output</h2>
+
+                    <img src="img/KNNUserInput.jpeg">
+                    <p class="text-muted">
+                    </p><table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-6 text-center">Value of K</th>
+                                <th class="col-xs-6 text-center">Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>25</td>
+                                <td>64.24%</td>
+                            </tr>
+                            <tr>
+                                <td>50</td>
+                                <td>71.39%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    Accuracy with scikit-learn library - 78.6% for K = 50 <br><br>
+                    For user input:<br><br>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 3 -->
+    <div class="portfolio-modal modal fade" id="logisticRegressionResultModel" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <h2 class="text-uppercase">Logistic Regression Algorithm: Output</h2>
+                  <img class="img-fluid d-block mx-auto" src="img/portfolio/03-full.jpg" alt="">
+                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <ul class="list-inline">
+                    <li>Date: January 2017</li>
+                    <li>Client: Finish</li>
+                    <li>Category: Identity</li>
+                  </ul>
+                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                    Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Modal -->
+      <div id="sunandTasks" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">Tasks Owned</h4>
+                  </div>
+                  <div class="modal-body text-justify">
+                      <p>
+                          # Implementation of Naive-Bayes algorithm and comparison of the accuracy with scikit-learn libraries.
+                      </p>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Modal -->
+      <div id="vamsyTasks" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">Tasks Owned</h4>
+                  </div>
+                  <div class="modal-body text-justify">
+                      <p>
+                          # Retrieving, Cleaning and preprocessing the data. For example, removing the stop word, non-alphanumeric characters. Feature extraction using Unigrams. <br />
+                          # Implementation of KNN algorithm and comparison of the accuracy with implementation using scikit-learn libraries
+                      </p>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Modal -->
+      <div id="vinutnaTasks" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">Tasks Owned</h4>
+                  </div>
+                  <div class="modal-body text-justify">
+                      <p>
+                          # Feature extraction using Bigrams. <br />
+                          # Implementation of Logistic Regression algorithm with and comparison of the accuracy with with scikit-learn libraries.
+                      </p>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Modal -->
+      <div id="ushaTasks" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title">Tasks Owned</h4>
+                  </div>
+                  <div class="modal-body text-justify">
+                      <p>
+                          # Taking user review from console and predicting the rating based on the model built using all the three algorithms
+                          # Comparing the accuracy of the three implemented models.
+                      </p>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+   
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/agency.min.js"></script>
+
+  </body>
+
+</html>
