@@ -50,6 +50,9 @@
               <li class="nav-item">
                   <a class="nav-link js-scroll-trigger" href="#results">Results</a>
               </li>
+              <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="#observations">Observations</a>
+              </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
             </li>
@@ -89,7 +92,8 @@
                                       <h4 class="subheading">Introduction</h4>
                                   </div>
                                   <div class="timeline-body">
-                                      <p class="text-muted">Review websites, such as TripAdvisor and Yelp, allow users to post online reviews for
+                                      <p class="text-muted">
+                                      Review websites, such as TripAdvisor and Yelp, allow users to post online reviews for
 various businesses, products and services, and have been recently shown to have a
 considerable influence on consumer shopping behavior. An online review typically consists of
 free-form text and a star rating out of 5. It provides a valuable feedback to the merchant about
@@ -176,7 +180,8 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
                           reviews of several categories of which we will be considering the most reviewed category
                           restaurants.
                       </p>
-                      <a class="btn btn-primary btn-xl" href="https://www.yelp.com/dataset">Yelp Dataset ></a>
+                      <btn class="btn btn-primary btn-xl" data-toggle="modal" data-target="#preProcessingModel">Pre-processing</btn>
+                      <a class="btn btn-primary btn-xl" href="https://www.yelp.com/dataset">Yelp Dataset</a>
                   </div>
               </div>
           </div>
@@ -225,27 +230,50 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
           <div class="container">
               <div class="row">
                   <div class="col-lg-12">
+                      <p class="text-muted">
+                          One of the categories that our project could fall under is definitely the supervised learning. The main reason for this is that a prior knowledge of the target variable is already known , that needs to be predicted at the end of project. To train our prediction models, we used three supervised learning algorithms.
+                      </p>
+                  </div>
+
+                  <div class="col-lg-12">
                       <h3>Naive Bayes Algorithm</h3>
                       <p class="text-muted">
-                          Naive Bayes methods are a set of supervised learning algorithms based on applying 'Bayes' theorem with the 'naive' assumption of independence between every pair of features.
-                          In other words, Naive Bayes is a conditional probability model.
-                          It is an intuitive method that uses probabilities of each attribute belonging to each class to make a prediction. <br>
-                          The multinomial Naive Bayes with smoothing has been implemented. To classify, we calculated probabilities of the review belonging to each rating and then selected the class value with highest probability.
-                          We have performed computations by summing logs of probabilities rather than multiplying probabilities for underflow prevention. <br>
+                          A Naive Bayes (Ng and Jordan, 2002) classifier makes the Naive Bayes assumption (i.e. it assumes conditional independence between any pair of features given some class) to model the joint probability P(r, s) for any feature vector r and star rating s. Then, given a new feature vector r ∗ for a new review r ∗ , the joint probability function is computed for all values of s, and the s value corresponding to the highest probability is output as the final class label for review r ∗.
+
+                          <br />
+                          <br />
+                          The multinomial Naive Bayes(which assumes that P(ri |s) is a multinomial distribution for all i) with smoothing has been implemented. To classify, we calculated probabilities of the review belonging to each rating and then selected the class value with highest probability. We have performed computations by summing logs of probabilities rather than multiplying probabilities for underflow prevention. We ran this model for smoothing factor - alpha ranging from 1 to 5 and found that we had better results for alpha = 1; so we’re considering alpha as 1 for our model.
+
 
                       </p>
                   </div>
                   <div class="col-lg-12">
                       <h3>K-Nearest Neighbors Algorithm</h3>
                       <p class="text-muted">
-                          K-Nearest Neighbors algorithm is an instance-based algorithm and belongs to the family of competitive learning and lazy learning algorithms. For the prediction of rating, the algorithm searches through the training dataset for the k most similar instances.<br>
-                          Hamming distance and Levenshtien distance has been used to classify reviews.
+                          K nearest neighbors is a supervised classification algorithm that uses all available data samples which classifies a new sample based on a similarity measure. There are many such similarity measures namely: Euclidean Distance, Hamming Distance, Cosine Similarity etc. Since we are working with textual data Hamming Distance best suits as the similarity measure. Hamming distance between two strings is the number of positions at which the corresponding character are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other.
+                          <br />
+                          <br />
+                          When a new sample is to be classified, we consider a majority vote of its neighbors, with the sample being assigned to the class that is most common amongst its K nearest neighbors measured using Hamming Distance.
+                          <br /><img src="img/models/knn.jpg"/>
                       </p>
                   </div>
                   <div class="col-lg-12">
                       <h3>Logistic regression</h3>
                       <p class="text-muted">
-                          Logistic regression is a statistical method for analyzing a dataset in which there are one or more independent variables that determine an outcome. The outcome is measured with a dichotomous variable (in which there are only two possible outcomes).
+                          Logistic regression is a simple classification algorithm for learning to predict a discrete variable such as predicting whether a grid of pixel intensities represents a “0” digit or a “1” digit. Here we use a hypothesis class to try to predict the probability that a given sample belongs to the class “1” versus the probability that it belongs to the class “0”. Specifically, we will try to learn a function of the form:
+                          <br /><br />
+                          &#160;&#160;&#160;&#160;&#160;P(y=1|x) = hθ(x) = 1/1+exp(-θTx)
+                          <br /><br />
+                          &#160;&#160;&#160;&#160;&#160;P(y=0|x) = 1- P(y=1|x)
+                          <br /><br />
+                          The function 1/1+exp(-z) is often called the “sigmoid” or “logistic” function – it is an S-shaped function that “squashes” the value of z into the range [0,1] so that we may interpret hθ(x) as a probability. Our goal is to search for a value of θ so that the probability P(y=1|x)=hθ(x) is large when x belongs to the “1” class and small when x belongs to the “0” class (so that P(y=0|x) is large). We can learn to classify our training data by minimizing the cost function to find the best choice of θ. To estimate the θ we used following equation:
+
+                          <br /><br />
+                          &#160;&#160;&#160;&#160;&#160;θ = θ + alpha * ∑ xi (hθ(xi) − yi)
+                          <br /><br />
+
+                          To perform multi-class Logistic Regression, we used one Vs all strategy. This strategy involves training a single classifier per class, with the samples of that class as positive samples and all other samples as negatives. While predicting a class for test sample we apply all classifiers to the unseen sample and predict the label k for which the corresponding classifier reports the highest probability score.
+                          <br /><img src="img/models/logestic.jpg"  style="width:50%"/>
                       </p>
                   </div>
               </div>
@@ -293,6 +321,47 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
         </div>
       </div>
     </section>
+
+      <!-- observations -->
+      <section id="observations">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <h3>Observations</h3>
+                      <p class="text-muted">
+                          <ul>
+                              <li>
+                                  KNN performed better when k value is chosen around squareroot of N(number of records in training data)
+                              </li>
+                              <li>
+                                  Built models performed better when bi-gram is chosen
+                              </li>
+                              <li>
+                                  Degree of positivity or negativity was observed to be very important for 5-class classification problem. However, lemmatization of words couldn’t preserve this information( lemma of word “worst”(class-1) is “bad”(class-2))
+                              </li>
+                              <li>
+                                  Because of conditional independence assumption of Naive Bayes, model failed to capture the difference between the phrases “good” and “not good”
+                              </li>
+                          </ul>
+                      </p>
+                  </div>
+                  <div class="col-lg-12">
+                      <h3>Future Enhancements</h3>
+                      <p class="text-muted">
+                          <ul>
+                              <li>
+                                  Refine KNN model by using different similarity measurements like cosine and minkowski distance
+                              </li>
+                              <li>
+                                  Perform better feature extraction and reduce dimensionality for improved performance
+                              </li>
+                          </ul>
+
+                      </p>
+                  </div>
+              </div>
+          </div>
+      </section>
 
     <!-- Team -->
     <section class="bg-light" id="team">
@@ -410,16 +479,22 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
     </section>
 
     <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <span class="copyright">Copyright &copy; ITCS-6190 Cloud Computing for Data Analysis</span>
+      <footer>
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8">
+                      <span class="copyright">Copyright &copy; ITCS-6190 Cloud Computing for Data Analysis</span>
+                  </div>
+                  <div class="col-md-4">
+                      <ul class="list-inline quicklinks">
+                          <li class="list-inline-item">
+                              <a href="" data-toggle="modal" data-target="#referencesModel">References</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
           </div>
-        
-        </div>
-      </div>
-    </footer>
+      </footer>
 
     <!-- Portfolio Modals -->
 
@@ -438,8 +513,9 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
                   <h2 class="text-uppercase">Naive Bayes Algorithm: Output</h2>
+                    <h5 class="text-uppercase">5 class</h5>
 
-                    <img src="img/NBUserInput.jpeg">
+                    <img src="img/results/nb5.jpeg">
                     <table class="table table-bordered text-center">
                         <thead>
                             <tr>
@@ -449,24 +525,62 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
                         </thead>
                         <tbody>
                             <tr>
+                                <td>1</td>
+                                <td>26.40%</td>
+                            </tr>
+                            <tr>
                                 <td>2</td>
-                                <td>52.38%</td>
+                                <td>25.46%</td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>52.78%</td>
+                                <td>25.18%</td>
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td>53.27%</td>
+                                <td>25.03%</td>
                             </tr>
                             <tr>
                                 <td>5</td>
-                                <td>53.46%</td>
+                                <td>24.88%</td>
+                            </tr>
+                        </tbody>
+                    </table><br><br>
+
+                    <h5 class="text-uppercase">3 class</h5>
+                    <img src="img/results/nb3.jpeg">
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-6 text-center">Value of alpha</th>
+                                <th class="col-xs-6 text-center">Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>44.18%</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>42.95%</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>42.57%</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>42.32%</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>42.23%</td>
                             </tr>
                         </tbody>
                     </table>
-                    Accuracy with scikit-learn library - 64.32% <br><br>
+
+                    Accuracy with scikit-learn library - 43.78% 
                   <button class="btn btn-primary" data-dismiss="modal" type="button">Close</button>
                 </div>
               </div>
@@ -492,7 +606,9 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
                   <!-- Project Details Go Here -->
                   <h2 class="text-uppercase">K-Nearest Neighbors Algorithm: Output</h2>
 
-                    <img src="img/KNNUserInput.jpeg">
+                    <h5 class="text-uppercase">5 class</h5>
+
+                    <img src="img/results/knn5.jpeg">
                     <p class="text-muted">
                     </p><table class="table table-bordered text-center">
                         <thead>
@@ -503,17 +619,76 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
                         </thead>
                         <tbody>
                             <tr>
-                                <td>25</td>
-                                <td>64.24%</td>
+                                <td>249</td>
+                                <td>44.92%</td>
                             </tr>
                             <tr>
-                                <td>50</td>
-                                <td>71.39%</td>
+                                <td>254</td>
+                                <td>44.92%</td>
+                            </tr><tr>
+                                <td>259</td>
+                                <td>44.92%</td>
+                            </tr>
+                            <tr>
+                                <td>264</td>
+                                <td>43.47%</td>
+                            </tr>
+                            <tr>
+                                <td>269</td>
+                                <td>42.02%</td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>42.02%</td>
+                            </tr>
+                            <tr>
+                                <td>279</td>
+                                <td>42.02%</td>
                             </tr>
                         </tbody>
                     </table>
-                    Accuracy with scikit-learn library - 78.6% for K = 50 <br><br>
-                    For user input:<br><br>
+                    <br />
+                    <h5 class="text-uppercase">3 class</h5>
+                    <img src="img/results/knn3.jpeg">
+                    <p class="text-muted">
+                    </p><table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-6 text-center">Value of K</th>
+                                <th class="col-xs-6 text-center">Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>249</td>
+                                <td>68.85%</td>
+                            </tr>
+                            <tr>
+                                <td>254</td>
+                                <td>68.85%</td>
+                            </tr>
+                            <tr>
+                                <td>259</td>
+                                <td>68.85%</td>
+                            </tr>
+                            <tr>
+                                <td>264</td>
+                                <td>68.85%</td>
+                            </tr>
+                            <tr>
+                                <td>269</td>
+                                <td>68.85%</td>
+                            </tr>
+                            <tr>
+                                <td>274</td>
+                                <td>68.85%</td>
+                            </tr>
+                            <tr>
+                                <td>279</td>
+                                <td>68.85%</td>
+                            </tr>
+                        </tbody>
+                    </table>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     Close</button>
                 </div>
@@ -539,13 +714,15 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
                   <h2 class="text-uppercase">Logistic Regression Algorithm: Output</h2>
-                  <img class="img-fluid d-block mx-auto" src="img/portfolio/03-full.jpg" alt="">
-                  <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <ul class="list-inline">
-                    <li>Date: January 2017</li>
-                    <li>Client: Finish</li>
-                    <li>Category: Identity</li>
-                  </ul>
+                    <h5 class="text-uppercase">5 class</h5>
+                    <img src="img/results/lr5.jpeg">
+                    Accuracy with Model - 37.01% <br><br>
+                    Accuracy with scikit-learn library - 43.22% <br><br>
+
+                    <h5 class="text-uppercase">3 class</h5>
+                    <img src="img/results/lr5.jpeg">
+                    Accuracy with Model - 59.50% <br><br>
+                    Accuracy with scikit-learn library - 65.87% <br><br>
                   <button class="btn btn-primary" data-dismiss="modal" type="button">
                     Close</button>
                 </div>
@@ -672,6 +849,105 @@ regression, Naive Bayes classification and K Nearest Neighbors) to train our pre
           </div>
       </div>
 
+
+      <div class="portfolio-modal modal fade" id="preProcessingModel" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="close-modal" data-dismiss="modal">
+                      <div class="lr">
+                          <div class="rl"></div>
+                      </div>
+                  </div>
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-lg-8 mx-auto">
+
+                              <div class="modal-header">
+                                  <h4 class="modal-title">Pre-Processing</h4>
+                              </div>
+                              <div class="modal-body text-justify">
+                                  <p>
+                                      As the part of initial analysis, we considered Restaurant business and analysed reviews of this business across multiple cities. City - LasVegas had XXXXXX records which accounts for 50% of total dataset, so we considered LasVegas city reviews as the input dataset.
+                                      As the part of next step - dataset  preprocessing, actions taken were
+                                      <br />
+                                      <ul>
+                                          <li>
+                                              Cleaning and Eliminating foreign language reviews
+                                          </li>
+                                          <li>
+                                              Removing stop words
+                                          </li>
+                                          <li>
+                                              Stemming
+                                          </li>
+                                          <li>
+                                              Lemmatization
+                                          </li>
+                                          <li>
+                                              Bi-gram technique
+                                          </li>
+                                      </ul>
+                                      <br />
+                                      For eliminating stop words, we used nltk stopwords library.For stemming, we have made use of the porter’s stemming algorithm to continue with the process of stemming the words.This process helped to get to the root form of every word which simplifies the classification process as the stemmer reduces a particular word to its dictionary form and can, therefore, represent most words in the data- set and avoid redundancy. We also tried to do lemmatization, but lemmatization on words “worst” and “bad” yielded “bad”. In our 5 class classification, we needed to restore degree of negativity in review text to correctly classify reviews. As the part of next step, we considered uni-gram, bi-gram(because “good” and “not good” holds totally different meaning in our context) and combination of both to extract features from review text and evaluated accuracies with each of these techniques.
+
+                                  </p>
+                                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                                      Close
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="portfolio-modal modal fade" id="referencesModel" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="close-modal" data-dismiss="modal">
+                      <div class="lr">
+                          <div class="rl"></div>
+                      </div>
+                  </div>
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-lg-8 mx-auto">
+                              <div class="modal-header">
+                                  <h4 class="modal-title">References</h4>
+                              </div>
+                              <div class="modal-body text-justify">
+                                  <p>
+                                      
+                                     
+                                          <a href="https://pdfs.semanticscholar.org/ce23/988aa1830c0b343e64234f318f28b91108d3.pdf">
+                                              https://pdfs.semanticscholar.org/ce23/988aa1830c0b343e64234f318f28b91108d3.pdf
+                                          </a><br />
+                                          <a href="https://arxiv.org/pdf/1605.05362.pdf ">
+                                              https://arxiv.org/pdf/1605.05362.pdf 
+                                          </a><br />
+                                          <a href="https://cseweb.ucsd.edu/~jmcauley/cse255/reports/fa15/017.pdf">
+                                              https://cseweb.ucsd.edu/~jmcauley/cse255/reports/fa15/017.pdf 
+                                          </a><br />
+                                          <a href="https://pdfs.semanticscholar.org/ce23/988aa1830c0b343e64234f318f28b91108d3.pdf">
+                                              https://pdfs.semanticscholar.org/ce23/988aa1830c0b343e64234f318f28b91108d3.pdf 
+                                          </a><br />
+                                          <a href="http://cs229.stanford.edu/proj2011/MehtaPhilipScaria-Predicting%20Star%20Ratings%20from%20Movie%20Review%20Comments.pdf">
+                                              http://cs229.stanford.edu/proj2011/MehtaPhilipScaria-Predicting%20Star%20Ratings%20from%20Movie%20Review%20Comments.pdf 
+                                          </a>
+                                     
+
+                                  </p>
+                                  <button class="btn btn-primary" data-dismiss="modal" type="button">
+                                      Close
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
    
 
     <!-- Bootstrap core JavaScript -->
